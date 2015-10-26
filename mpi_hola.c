@@ -7,7 +7,7 @@ MPI_Init (&argc, &argv);
  /* starts MPI */ 
 MPI_Comm_rank (MPI_COMM_WORLD, &rank); /* get current process id */ 
 MPI_Comm_size (MPI_COMM_WORLD, &size); /* get number of processes */ 
-printf( "Hola soy el proveso %d de %d\n", rank, size ); 
+printf( "Hola soy el proceso %d de %d\n", rank, size ); 
 MPI_Finalize(); 
 return 0; 
 }
