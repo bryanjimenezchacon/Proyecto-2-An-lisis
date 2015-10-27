@@ -7,7 +7,9 @@ int main()
     string h1 = "CTCATCAACGCAGCTAAAGTTCAGATCCTTCTCCAGCGCTAAGGTCATTGTTACGCAAGCCTTACGAACGGTGACCGGCTGTTGACACGACCGTCACCCTCAAATTATAGGCGCACACTAACACCGGCCAGGTTAGTAAAGGGGTAGCTTATCATGAATTACGCTGCTGATCTTACAATAAGACTGGTTTTATAGCCTCCAGAGCCTGACTGGCACTAAGCGGAGCTGCCCTCTCGTCAACTGGTACCTACATAAACCATGCAACCCTACGGGGTGAATGTGACTAATAAATGCTTCTTACGTCGAAGTTTTGGCAGATCCACGGAGTTTTTTATTAAAGTAATTTTCGCTGTCATGTACCTACGAACTTAATATCGGAGGAGAATTCGAACCGCTTTGCGTAACCTTGTATACGGGACGACTATTGTCATTGCTCTCAAATGGTGACGGGTCGAAGAATCAGTGCCTGCCGACTCATTGGGGTCGTGCTTTTAATCTCAAGCACCACACGCTCGAACATGTACCCTGTGGGAGGCGAAATTGTGTTAATGGGGGCGTATGAATATATCTACTTAGCTGAGGTACGATCGCAAGAGTCGTCCAAGTAATAGGGCCTAGTCCAAGGTTGAAATCCCAGGGGGACTTACTTAGCCGTCTTGGCCCGGTCGCGCGGACCTAAATATGCTCGATGCAAGAAACTCGGAAGTTATCACAAAAACAATGTTTTGGAGAGCATAATGCCGTGTTGCGCGTGGTTGCAACGATCAAAGAGATTTAGGAATAGCGTTTTAAAGTATGAC";
     string h2 = "GGTGAGGCTTGCGATATAAATTTTAAGGCGTAGAGAGGCCCGCACTCATTAGGTTCTTTAGCCTGCCCCCTCAGGCCACCCTTATTAGGAGGGTGGTGAAATACGGAAATGATACAATGTGTCCTAAGACATAACCAAGACATGTAGGTCCTTGAGATTCAAATCCGATCGCGGGACGACTATCATCAGGTAGAGCCCACAGAGTCGTCGGAAGCTGGTGAGTGCAAGGTGAAAGTGGTTCGACAGTTGTCGGTTTATTAGGCTGGGATAAACTTGCCACGATGATTAGTCAATGCTCACGGTCTCCAGTAGAGTTTTTGCTGTTGCTAATATATTCATAGTGAGAAGCCCTATGAACATGTGTGACTGTGTCGAGCCAATGTGACAGAATGAGTGAGAATAGGTACACATCCGTTCCCAAATATTTCACCTTAACCTACGTAAAATCTAGACTCTCAGGTGGCGACTTGAGATGTTACCTATGCTTTCGTTTCTCGACAACGGGCGTGGGACCAAATATAAACTGGGTCGTACATAATTTCAACACTACCGAGATTGTTGTATATCATAGCCGAGCAATCCATTGTCGACTAACAGCGAGGTAATTCTGAGATCTCCGTCTATGAATTGATTTGGAAACATCTTGGGTAATAAGAACCCATAAGACTTCTCAGCCTGGTCAAGATAGCAATGGTTCAAAGCGACCCACTCAGATACGATTGATGATAATGCACGCCCATTGCATAGGGCACATGGCTCTATCTTCTTCTCGCATGCAGCCACAAGAAATTTATCATATTTTGTTATGGCATGGTATGAGACTATCGGGTGGGCTGGGAATGACACGATCTTTATCCCTCCTGCCGGTTCTTGACACCTATTCCGGAGGCCATCTAATCCAGTCACCGGGGGAGGGCCTTAGCCCTCGCTGGGCCATTGGTTCGGCTCATATAAAGCATCGTTGGTCGCAACGGACGGGACGCGCTGGACGCATAACTGT";
     int division = 4;
-    int matriz[5][5];// Crea la matriz
+    int l1 = 3;
+    int l2 = 4;
+    int matriz[4][5];// Crea la matriz
     int Match;
     int Delete;
     int Insert;
@@ -15,25 +17,35 @@ int main()
 
     // Inicializa los valores
 
-    for(int i = 0; i <= 4; i++){
-            for(int j = 0; j <= 4; j++){
+    for(int i = 0; i <= l1; i++){
+            for(int j = 0; j <= l2; j++){
                         matriz[i][j] = 0;
         }
     }
-    for(int i = 0; i <= 4; i++){
-        matriz[i][0] = i;
-        cout << i;
-    }
-    cout << "hola" << endl;
-    for(int j = 0; j <= 4; j++){
+
+    for(int j = 0; j <= l2; j++){
         matriz[0][j] = j;
-        cout << j;
+        cout << j << " ";
+    }
+    for(int i = 0; i <= l1; i++){
+        matriz[i][0] = i;
+        cout << i << endl;
+    }
+    cout <<endl;
+        for(int i = 0; i <= l1; i++){
+            //cout << "h1: "<<h1[i] << " " ;
+            //cout << endl << "h2: " << h2[i] << endl;
+        for(int j = 0; j <= l2; j++){
+            cout << matriz[i][j];
+            cout << " ";
+        }
+        cout << endl;
     }
     // Evalua casos
     cout << endl << "fin :" ;
-    for(int i = 1; i <= 4; i++){
+    for(int i = 1; i <= l1; i++){
         cout << "------------------------------------" << endl;
-        for(int j = 1; j <= 4; j++){
+        for(int j = 1; j <= l2; j++){
             cout << "------------------------------------" << endl;
             if(h1[i - 1] != h2[j - 1]){
                 cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -63,10 +75,10 @@ int main()
 //    cout << endl << "h2: " << h2[i] << endl;
 //    }
 
-    for(int i = 0; i <= 4; i++){
+    for(int i = 0; i <= l1; i++){
             //cout << "h1: "<<h1[i] << " " ;
             //cout << endl << "h2: " << h2[i] << endl;
-        for(int j = 0; j <= 4; j++){
+        for(int j = 0; j <= l2; j++){
             cout << matriz[i][j];
             cout << " ";
         }
