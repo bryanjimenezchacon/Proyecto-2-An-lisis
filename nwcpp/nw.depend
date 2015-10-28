@@ -1,5 +1,14 @@
 # depslib dependency file v1.0
-1445977441 source:c:\users\phoenixleno\documents\github\proyecto-2-an-lisis\nwcpp\main.cpp
+1446003803 source:c:\users\phoenixleno\documents\github\proyecto-2-an-lisis\nwcpp\main.cpp
 	<iostream>
+	<stdio.h>
 	<string>
+
+1445999870 c:\users\phoenixleno\documents\github\proyecto-2-an-lisis\nwcpp\include\linkedlist.h
+	<stdio.h>
+	<iostream>
+	<stdexcept>
+	"Node.h"
+
+1445995066 c:\users\phoenixleno\documents\github\proyecto-2-an-lisis\nwcpp\include\node.h
 
