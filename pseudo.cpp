@@ -53,6 +53,7 @@ int main() {
   while (contador_nw < NW_LIMIT) {
 
 	  if (contador_nw == 0){
+            cout << "Entre al proceso 1"
 		  for(int i = 1; i <= l2; i++){
 				for(int j = 1; j <= columnasPorProceso; j++){
 
@@ -73,8 +74,9 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][j] << endl;
+					//cout << "min : " << matriz[i][j] << endl;
 				}
+        cout << "Sali del proceso 1"
         cout << endl;
 			}
 		contador_nw ++;
@@ -82,6 +84,7 @@ int main() {
 
 	  }
 	  if (contador_nw == 1){
+            cout << "Entre al proceso 2"
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
