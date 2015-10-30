@@ -83,11 +83,11 @@ int main() {
 	  }
 	  if (contador_nw == 1){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -96,13 +96,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
@@ -113,11 +113,11 @@ int main() {
 	  }
 	  if (contador_nw == 2){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -126,13 +126,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
@@ -144,11 +144,11 @@ int main() {
 	  }
 	  if (contador_nw == 3){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -157,13 +157,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
@@ -175,11 +175,11 @@ int main() {
 	  }
 	  if (contador_nw == 4){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -188,13 +188,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
@@ -206,11 +206,11 @@ int main() {
 	  }
 	  if (contador_nw == 5){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -219,13 +219,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
@@ -237,11 +237,11 @@ int main() {
 	  }
 	  if (contador_nw == 6){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -250,13 +250,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
@@ -268,11 +268,11 @@ int main() {
 	  }
 	  if (contador_nw == 7){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
+		  for(int i = 1; i <= l2; i++){
+				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -281,13 +281,13 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
+					matriz[i][j-1] = min(min(Match, Insert), Delete);
 					cout << "min : " << matriz[i][contador_nw] << endl;
 				}
         cout << endl;
