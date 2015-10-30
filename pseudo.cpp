@@ -27,7 +27,7 @@ int main() {
             for(int j = 0; j <= l2; j++){
                         matriz[i][j] = 0;
         }
-    } 
+    }
 	//Crea la primera fila y columna
     for(int j = 0; j <= l2; j++){
         matriz[0][j] = j;
@@ -37,7 +37,7 @@ int main() {
         matriz[i][0] = i;
         //cout << i << endl;
     }
-  
+
   // Initialize the MPI environment
   MPI_Init(NULL, NULL);
   // Find out rank, size
@@ -46,15 +46,10 @@ int main() {
   int world_size;
   MPI_Comm_size(MPI_COMM_WORLD, &world_size);
 
-  if (world_size != 2) {
-    fprintf(stderr, "World size must be two for %s\n", argv[0]);
-    MPI_Abort(MPI_COMM_WORLD, 1); 
-  }
-
   int contador_nw = 0;
   int partner_rank = (world_rank + 1);
   while (contador_nw < NW_LIMIT) {
-	  
+
 	  if (contador_nw == 0){
 		  for(int i = 0; i <= l1; i++){
 				for(int j = 0; j <= contador_nw; j++){
@@ -112,7 +107,7 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		  
+
 	  }
 	  if (contador_nw == 2){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -142,8 +137,8 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		
-		  
+
+
 	  }
 	  if (contador_nw == 3){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -173,8 +168,8 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		
-		  
+
+
 	  }
 	  if (contador_nw == 4){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -204,8 +199,8 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		
-		  
+
+
 	  }
 	  if (contador_nw == 5){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -235,8 +230,8 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		
-		  
+
+
 	  }
 	  if (contador_nw == 6){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -266,8 +261,8 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		
-		  
+
+
 	  }
 	  if (contador_nw == 7){
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
@@ -297,9 +292,9 @@ int main() {
 			}
 		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-		
-		  
-	  }	
+
+
+	  }
 	}
 MPI_Finalize();
 
