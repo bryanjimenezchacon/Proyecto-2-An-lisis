@@ -11,33 +11,33 @@ int main()
     int division = 4;
     int l1 = 8;
     int l2 = 11;
-    cout << "Largo l1: " << l1;
+    cout << "cant columnas: " << l1;
     cout << endl;
-    cout << "Largo l2: " << l2;
+    cout << "cant filas: " << l2;
     int Match;
     int Delete;
     int Insert;
     int bandera;
-    cout << "Largo h1: " << h1.length();
+    cout << "Largo columas: " << h1.length();
     cout << endl;
-    cout << "Largo h2: " << h2.length();
+    cout << "Largo filas: " << h2.length();
     // Inicializa los valores
-    for(int i = 0; i <= l1; i++){
-            for(int j = 0; j <= l2; j++){
+    for(int i = 0; i <= l2; i++){
+            for(int j = 0; j <= l1; j++){
                         matriz[i][j] = 0;
         }
     }
 
-    for(int j = 0; j <= l2; j++){
+    for(int j = 0; j <= l1; j++){
         matriz[0][j] = j;
         //cout << j << " ";
     }
-    for(int i = 0; i <= l1; i++){
+    for(int i = 0; i <= l2; i++){
         matriz[i][0] = i;
         //cout << i << endl;
     }
     //cout <<endl;
-        for(int i = 0; i <= l1; i++){
+    for(int i = 0; i <= l1; i++){
             ////cout << "h1: "<<h1[i] << " " ;
             ////cout << endl << "h2: " << h2[i] << endl;
         for(int j = 0; j <= l2; j++){
@@ -48,9 +48,9 @@ int main()
     }
     // Evalua casos
     cout << endl << "fin :" ;
-    for(int i = 1; i <= l1; i++){
+    for(int i = 1; i <= l2; i++){
         //cout << "------------------------------------" << endl;
-        for(int j = 1; j <= l2; j++){
+        for(int j = 1; j <= l1; j++){
             //cout << "------------------------------------" << endl;
             if(h1[i - 1] != h2[j - 1]){
                 //cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -81,11 +81,12 @@ int main()
 //    //cout << endl << "h2: " << h2[i] << endl;
 //    }
 
-    for(int i = 0; i <= l1; i++){
+
+    for(int i = 0; i <= l2; i++){
             //cout << "h1: "<<h1[i] << " " ;
             //cout << endl << "h2: " << h2[i] << endl;
-        for(int j = 0; j <= l2; j++){
-            cout << matriz[i][3];
+        for(int j = 0; j <= l1; j++){
+            cout << matriz[i][j];
             cout << " ";
         }
         cout << endl;
