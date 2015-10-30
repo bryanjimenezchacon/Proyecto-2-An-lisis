@@ -12,6 +12,8 @@ int main() {
     string h2 = "GGTGAGGCTTGCGATATAAATTTTAAGGCGTAGAGAGGCCCGCACTCATTAGGTTCTTTAGCCTGCCCCCTCAGGCCACCCTTATTAGGAGGGTGGTGAAATACGGAAATGATACAATGTGTCCTAAGACATAACCAAGACATGTAGGTCCTTGAGATTCAAATCCGATCGCGGGACGACTATCATCAGGTAGAGCCCACAGAGTCGTCGGAAGCTGGTGAGTGCAAGGTGAAAGTGGTTCGACAGTTGTCGGTTTATTAGGCTGGGATAAACTTGCCACGATGATTAGTCAATGCTCACGGTCTCCAGTAGAGTTTTTGCTGTTGCTAATATATTCATAGTGAGAAGCCCTATGAACATGTGTGACTGTGTCGAGCCAATGTGACAGAATGAGTGAGAATAGGTACACATCCGTTCCCAAATATTTCACCTTAACCTACGTAAAATCTAGACTCTCAGGTGGCGACTTGAGATGTTACCTATGCTTTCGTTTCTCGACAACGGGCGTGGGACCAAATATAAACTGGGTCGTACATAATTTCAACACTACCGAGATTGTTGTATATCATAGCCGAGCAATCCATTGTCGACTAACAGCGAGGTAATTCTGAGATCTCCGTCTATGAATTGATTTGGAAACATCTTGGGTAATAAGAACCCATAAGACTTCTCAGCCTGGTCAAGATAGCAATGGTTCAAAGCGACCCACTCAGATACGATTGATGATAATGCACGCCCATTGCATAGGGCACATGGCTCTATCTTCTTCTCGCATGCAGCCACAAGAAATTTATCATATTTTGTTATGGCATGGTATGAGACTATCGGGTGGGCTGGGAATGACACGATCTTTATCCCTCCTGCCGGTTCTTGACACCTATTCCGGAGGCCATCTAATCCAGTCACCGGGGGAGGGCCTTAGCCCTCGCTGGGCCATTGGTTCGGCTCATATAAAGCATCGTTGGTCGCAACGGACGGGACGCGCTGGACGCATAACTGT";
     int l1 = 800;
     int l2 = 1000;
+
+    int columnasPorProceso = l1/NW_LIMIT;
     cout << "Largo l1: " << l1;
     cout << endl;
     cout << "Largo l2: " << l2;
@@ -51,11 +53,11 @@ int main() {
   while (contador_nw < NW_LIMIT) {
 
 	  if (contador_nw == 0){
-		  for(int i = 0; i <= l1; i++){
-				for(int j = 0; j <= contador_nw; j++){
-					cout << matriz[i][contador_nw];
+		  for(int i = 1; i <= l2; i++){
+				for(int j = 1; j <= columnasPorProceso; j++){
+					cout << matriz[i][j];
 						 //cout << "------------------------------------" << endl;
-					if(h1[i - 1] != h2[contador_nw]){
+					if(h1[i - 1] != h2[j - 1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "diferentes"<< endl;
 						bandera = 1;
@@ -64,14 +66,14 @@ int main() {
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
 						//cout << "IGUALES"<< endl;
 						}
-					Match = matriz[i-1][contador_nw] + bandera;
+					Match = matriz[i-1][j-1] + bandera;
 					//cout << "M: " << Match << endl;
-					Delete = matriz[i - 1][contador_nw + 1] + 1;
+					Delete = matriz[i - 1][j] + 1;
 					//cout << "D " <<Delete << endl;
-					Insert = matriz[i][contador_nw] + 1;
+					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
-					matriz[i][contador_nw] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					matriz[i][j] = min(min(Match, Insert), Delete);
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
