@@ -55,7 +55,7 @@ int main() {
 	  if (contador_nw == 0){
 		  for(int i = 1; i <= l2; i++){
 				for(int j = 1; j <= columnasPorProceso; j++){
-					cout << matriz[i][j];
+
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j - 1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -85,7 +85,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -103,7 +102,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
@@ -115,7 +114,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -133,7 +131,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
@@ -146,7 +144,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -164,7 +161,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
@@ -177,7 +174,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -195,7 +191,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
@@ -208,7 +204,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -226,7 +221,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
@@ -239,7 +234,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -257,7 +251,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
@@ -270,7 +264,6 @@ int main() {
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
-					cout << matriz[i][contador_nw];
 						 //cout << "------------------------------------" << endl;
 					if(h1[i - 1] != h2[j-1]){
 						//cout << h1[i - 1]<< h2[j-1]<<endl;
@@ -288,7 +281,7 @@ int main() {
 					Insert = matriz[i][j-1] + 1;
 					//cout << "I " << Insert << endl;
 					matriz[i][j-1] = min(min(Match, Insert), Delete);
-					cout << "min : " << matriz[i][contador_nw] << endl;
+					cout << "min : " << matriz[i][j] << endl;
 				}
         cout << endl;
 			}
