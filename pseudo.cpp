@@ -76,16 +76,18 @@ int main() {
 					matriz[i][j] = min(min(Match, Insert), Delete);
 					//cout << "min : " << matriz[i][j] << endl;
 				}
-        cout << "Sali del proceso 1";
+       
         cout << endl;
 			}
 		contador_nw ++;
-		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
+		cout << "Voy a sendear";
+		 MPI_Send(&matriz, 1, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
+		cout << "YA sendee"  << endl;
 
 	  }
 	  if (contador_nw == 1){
             cout << "Entre al proceso 2";
-		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		  MPI_Recv(&matriz, 1, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= l2; i++){
 				for(int j = (columnasPorProceso*contador_nw) + 1; j <= l1; j++){
 						 //cout << "------------------------------------" << endl;

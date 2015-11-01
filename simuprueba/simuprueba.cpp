@@ -1,5 +1,7 @@
 #include <iostream>
 #include <mpi.h>
+#include <string>
+
 using namespace std;
 int matriz[1001][801];
     const int NW_LIMIT = 8;// Limite procesos
@@ -14,8 +16,9 @@ int matriz[1001][801];
     int Insert;
     bool banderaCrearMatriz =  true;
     int bandera;
-    int contador = 0; 
+    int contador_nw = 0; 
  void prepararMatriz(){
+    banderaCrearMatriz = false;
  		cout << " entre a preparar matiz " << endl;
      // Inicializa la matriz en 0
     for(int i = 0; i <= filas; i++){
@@ -36,16 +39,16 @@ int matriz[1001][801];
         //cout << i << endl;
     }
 
-    for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
-            //cout << "h1: "<<h1[i] << " " ;
-            //cout << endl << "h2: " << h2[i] << endl;
-        for(int j = 0; j <= columnas; j++){
-        			matriz[i][j];
-        			cout << " ";        
-        		} 
-        cout << endl;
+    // for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
+    //         //cout << "h1: "<<h1[i] << " " ;
+    //         //cout << endl << "h2: " << h2[i] << endl;
+    //     for(int j = 0; j <= columnas; j++){
+    //     			cout << matriz[i][j];
+    //     			cout << " ";        
+    //     		} 
+    //     cout << endl;
 
-    }
+    // }
 }
 
 
@@ -57,22 +60,66 @@ int main()
   // Initialize the MPI environment
   MPI_Init(NULL, NULL);
   // Find out rank, size
-  int world_rank;
-  MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+  MPI_Status stat;
+  int proceso;
+  MPI_Comm_rank(MPI_COMM_WORLD, &proceso);
   int world_size;
   MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-  int partner_rank = (world_rank);
 
   //cout << " size:" << world_size<< endl;
-  //cout << " rank:" << world_rank<< endl;
-    if (world_rank == 7) { cout << world_rank << endl;}
-    if (world_rank == 6) { cout << world_rank << endl;}
-    if (world_rank == 5) { cout << world_rank << endl;}
-    if (world_rank == 4) { cout << world_rank << endl;}
-    if (world_rank == 3) { cout << world_rank << endl;}
-    if (world_rank == 2) { cout << world_rank << endl;}
-    if (world_rank == 1) { cout << world_rank << endl;}
-    if (world_rank == 0) { cout << world_rank << endl; prepararMatriz();}
+  //cout << " rank:" << proceso<< endl;
+    if (proceso != 0) { cout << endl<< " Proceso " << proceso << endl;
+    }
+    else {cout << "soy 0  : "<< endl;}
+    
+
+// if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
+//          MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+//             cout << "Entre al proceso 1";
+//           for(int i = 1; i <= filas; i++){
+//                 int columnaInicio = (columnasPorProceso*contador) + 1;
+//                 for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
+
+
+//                          //cout << "------------------------------------" << endl;
+//                     if(h1[j - 1] != h2[i - 1]){
+//                         cout << h1[j - 1]<< h2[i - 1]<<endl;
+//                         cout << "diferentes"<< endl;
+//                         bandera = 1;
+//                     }else {
+//                         cout << "IGUALES"<< endl;
+//                         bandera = 0;
+//                         //cout << h1[i - 1]<< h2[j-1]<<endl;
+//                         //cout << "IGUALES"<< endl;
+//                         }
+//                     Match = matriz[i-1][j-1] + bandera;
+//                     //cout << "M: " << Match << endl;
+//                     Delete = matriz[i - 1][j] + 1;
+//                     //cout << "D " <<Delete << endl;
+//                     Insert = matriz[i][j-1] + 1;
+//                     //cout << "I " << Insert << endl;
+//                     matriz[i][j] = min(min(Match, Insert), Delete);
+//                     //cout << "min : " << matriz[i][j] << endl;
+//                 }
+
+//         cout << endl;
+//             }  
+//         contador++;
+//         MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
+
+
+      
+
+
+
+
+
+
+
+
+
+
 
 
 MPI_Finalize();

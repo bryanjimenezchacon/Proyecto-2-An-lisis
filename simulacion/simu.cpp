@@ -2,9 +2,6 @@
 #include <mpi.h>
 using namespace std;
 int matriz[1001][801];
-int main()
-{
-    cout << "Hello world!" << endl;
     const int NW_LIMIT = 8;// Limite procesos
     string h1 = "CTCATCAACGCAGCTAAAGTTCAGATCCTTCTCCAGCGCTAAGGTCATTGTTACGCAAGCCTTACGAACGGTGACCGGCTGTTGACACGACCGTCACCCTCAAATTATAGGCGCACACTAACACCGGCCAGGTTAGTAAAGGGGTAGCTTATCATGAATTACGCTGCTGATCTTACAATAAGACTGGTTTTATAGCCTCCAGAGCCTGACTGGCACTAAGCGGAGCTGCCCTCTCGTCAACTGGTACCTACATAAACCATGCAACCCTACGGGGTGAATGTGACTAATAAATGCTTCTTACGTCGAAGTTTTGGCAGATCCACGGAGTTTTTTATTAAAGTAATTTTCGCTGTCATGTACCTACGAACTTAATATCGGAGGAGAATTCGAACCGCTTTGCGTAACCTTGTATACGGGACGACTATTGTCATTGCTCTCAAATGGTGACGGGTCGAAGAATCAGTGCCTGCCGACTCATTGGGGTCGTGCTTTTAATCTCAAGCACCACACGCTCGAACATGTACCCTGTGGGAGGCGAAATTGTGTTAATGGGGGCGTATGAATATATCTACTTAGCTGAGGTACGATCGCAAGAGTCGTCCAAGTAATAGGGCCTAGTCCAAGGTTGAAATCCCAGGGGGACTTACTTAGCCGTCTTGGCCCGGTCGCGCGGACCTAAATATGCTCGATGCAAGAAACTCGGAAGTTATCACAAAAACAATGTTTTGGAGAGCATAATGCCGTGTTGCGCGTGGTTGCAACGATCAAAGAGATTTAGGAATAGCGTTTTAAAGTATGAC";
     string h2 = "GGTGAGGCTTGCGATATAAATTTTAAGGCGTAGAGAGGCCCGCACTCATTAGGTTCTTTAGCCTGCCCCCTCAGGCCACCCTTATTAGGAGGGTGGTGAAATACGGAAATGATACAATGTGTCCTAAGACATAACCAAGACATGTAGGTCCTTGAGATTCAAATCCGATCGCGGGACGACTATCATCAGGTAGAGCCCACAGAGTCGTCGGAAGCTGGTGAGTGCAAGGTGAAAGTGGTTCGACAGTTGTCGGTTTATTAGGCTGGGATAAACTTGCCACGATGATTAGTCAATGCTCACGGTCTCCAGTAGAGTTTTTGCTGTTGCTAATATATTCATAGTGAGAAGCCCTATGAACATGTGTGACTGTGTCGAGCCAATGTGACAGAATGAGTGAGAATAGGTACACATCCGTTCCCAAATATTTCACCTTAACCTACGTAAAATCTAGACTCTCAGGTGGCGACTTGAGATGTTACCTATGCTTTCGTTTCTCGACAACGGGCGTGGGACCAAATATAAACTGGGTCGTACATAATTTCAACACTACCGAGATTGTTGTATATCATAGCCGAGCAATCCATTGTCGACTAACAGCGAGGTAATTCTGAGATCTCCGTCTATGAATTGATTTGGAAACATCTTGGGTAATAAGAACCCATAAGACTTCTCAGCCTGGTCAAGATAGCAATGGTTCAAAGCGACCCACTCAGATACGATTGATGATAATGCACGCCCATTGCATAGGGCACATGGCTCTATCTTCTTCTCGCATGCAGCCACAAGAAATTTATCATATTTTGTTATGGCATGGTATGAGACTATCGGGTGGGCTGGGAATGACACGATCTTTATCCCTCCTGCCGGTTCTTGACACCTATTCCGGAGGCCATCTAATCCAGTCACCGGGGGAGGGCCTTAGCCCTCGCTGGGCCATTGGTTCGGCTCATATAAAGCATCGTTGGTCGCAACGGACGGGACGCGCTGGACGCATAACTGT";
@@ -12,16 +9,14 @@ int main()
     int columnas = 8;
 
     int columnasPorProceso = columnas/NW_LIMIT;
-    cout << "Largo filas: " << filas;
-    cout << endl;
-    cout << "Largo columnas: " << columnas;
     int Match;
     int Delete;
     int Insert;
+    bool banderaCrearMatriz =  true;
     int bandera;
-    cout << "Largo h1: " << h1.length();
-    cout << endl;
-    cout << "Largo h2: " << h2.length();
+    int contador = 0; 
+ void prepararMatriz(){
+ 		cout << " entre a preparar matiz " << endl;
      // Inicializa la matriz en 0
     for(int i = 0; i <= filas; i++){
 
@@ -29,15 +24,8 @@ int main()
                         matriz[i][j] = 0;
         }
     }
-    for(int i = 0; i <=filas; i++){// Imprime la MATRIZ
-            //cout << "h1: "<<h1[i] << " " ;
-            //cout << endl << "h2: " << h2[i] << endl;
-        for(int j = 0; j <= columnas; j++){
-            cout << matriz[i][j];
-            cout << " ";
-        }
-        cout << endl;
-    }
+
+    
 	//Crea la primera fila y columna
     for(int j = 0; j <= filas; j++){
         matriz[j][0] = j;
@@ -52,30 +40,48 @@ int main()
             //cout << "h1: "<<h1[i] << " " ;
             //cout << endl << "h2: " << h2[i] << endl;
         for(int j = 0; j <= columnas; j++){
-            cout << matriz[i][j];
-            cout << " ";
-        }
+        			matriz[i][j];
+        			cout << " ";        
+        		} 
         cout << endl;
+
     }
+}
+
+int main()
+{
 
 
 
   // Initialize the MPI environment
-  //MPI_Init(NULL, NULL);
+  MPI_Init(NULL, NULL);
   // Find out rank, size
   int world_rank;
-  //MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+  MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
   int world_size;
-  //MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+  MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+  int partner_rank = (world_rank);
 
-  int contador_nw = 0;
-  int partner_rank = (world_rank + 1);
- while (contador_nw < NW_LIMIT) {
-      cout << "NW Limit: " << NW_LIMIT << endl;
-	  if (contador_nw == 0){
+  //cout << " size:" << world_size<< endl;
+  //cout << " rank:" << world_rank<< endl;
+	if (world_rank == 7) { cout << world_rank << endl;}
+	if (world_rank == 6) { cout << world_rank << endl;}
+	if (world_rank == 5) { cout << world_rank << endl;}
+	if (world_rank == 4) { cout << world_rank << endl;}
+	if (world_rank == 3) { cout << world_rank << endl;}
+	if (world_rank == 2) { cout << world_rank << endl;}
+	if (world_rank == 1) { cout << world_rank << endl;}
+	if (world_rank == 0) { cout << world_rank << endl;}
+
+
+ if (world_rank== 0){
+			if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
+	  	 MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
             cout << "Entre al proceso 1";
 		  for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -101,11 +107,8 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
-		cout << "Sali del proceso 1";
-		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
-            cout << endl;
-            for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
+		cout << " Final " << endl;
+		 for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
             //cout << "h1: "<<h1[i] << " " ;
             //cout << endl << "h2: " << h2[i] << endl;
         for(int j = 0; j <= columnas; j++){
@@ -113,13 +116,19 @@ int main()
             cout << " ";
         }
         cout << endl;
-    }
+    }	
+    	contador++;
+    	MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
+
+
 	  }
-	  if (contador_nw == 1){
+	  if (world_rank == 1){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
             cout << "Entre al proceso 2";
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -145,7 +154,6 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
             cout << endl;
             for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
@@ -157,11 +165,14 @@ int main()
         }
         cout << endl;
     }
+    contador++;
 	  }
-	  if (contador_nw == 2){
+	  if (world_rank == 2){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		 for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -187,7 +198,7 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
+		
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
             cout << endl;
             for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
@@ -199,12 +210,14 @@ int main()
         }
         cout << endl;
     }
-
+    	contador++;
 	  }
-	  if (contador_nw == 3){
+	  if (world_rank == 3){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		  for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -230,15 +243,17 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
+		contador++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
 
 
 	  }
-	  if (contador_nw == 4){
+	  if (world_rank == 4){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		 for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -264,15 +279,17 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
+		contador++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
 
 
 	  }
-	  if (contador_nw == 5){
+	  if (world_rank == 5){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		 for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -298,15 +315,17 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
+		contador++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
 
 
 	  }
-	  if (contador_nw == 6){
+	  if (world_rank == 6){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
 		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -332,16 +351,18 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
+		contador++;
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
 
 
 	  }
-	  if (contador_nw == 7){
+	  if (world_rank == 7){
+	if (banderaCrearMatriz == true){ banderaCrearMatriz = false;prepararMatriz();}
             cout << "Entre al proceso 8";
-		  MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+		  //MPI_Recv(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 		 for(int i = 1; i <= filas; i++){
-				for(int j = ((columnasPorProceso*contador_nw) + 1); j < ((columnasPorProceso*contador_nw) + 1 + columnasPorProceso); j++){
+				int columnaInicio = (columnasPorProceso*contador) + 1;
+				for(int j = (columnaInicio); j < columnaInicio + columnasPorProceso; j++){
 
 
 						 //cout << "------------------------------------" << endl;
@@ -367,23 +388,14 @@ int main()
 
         cout << endl;
 			}
-		contador_nw ++;
+		
 		 MPI_Send(&matriz, 801801, MPI_INT, partner_rank, 0, MPI_COMM_WORLD);
 
 
 	  }
-	}
+	
 MPI_Finalize();
-    for(int i = 0; i <= filas; i++){// Imprime la MATRIZ
-            //cout << "h1: "<<h1[i] << " " ;
-            //cout << endl << "h2: " << h2[i] << endl;
-        for(int j = 0; j <= columnas; j++){
-            cout << matriz[i][j];
-            cout << " ";
-        }
-        cout << endl;
-    }
-
+   
 return 0;
 
 }
