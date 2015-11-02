@@ -71,9 +71,8 @@ if (rank == 0) {
 
   dest = 1;
   source = 7;
-  matriz[1][0] = 9;
   rc = MPI_Send(&(matriz[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
-  rc = MPI_Recv(&(matriz[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+  
 
   } 
 
@@ -81,7 +80,6 @@ else if ( rank == 1){
   dest = 2;
   source = 0;
   rc = MPI_Recv(&(matriz[0][0]),  ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
-  imprimirMatriz();
   rc = MPI_Send(&(matriz[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   //imprimirMatriz();
   }
@@ -121,7 +119,7 @@ else if ( rank == 1){
   dest = 0;
   source = 6;
   rc = MPI_Recv(&(matriz[0][0]), ((filas + 1) * (columnas + 1)),MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
-  rc = MPI_Send(&(matriz[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
+  imprimirMatriz();
   }
 
 rc = MPI_Get_count(&Stat, MPI_INT, &count);

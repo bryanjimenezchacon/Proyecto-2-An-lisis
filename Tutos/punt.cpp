@@ -9,8 +9,8 @@ int matriz[1001][801];
     const int NW_LIMIT = 8;// Limite procesos
     string h1 = "CTCATCAACGCAGCTAAAGTTCAGATCCTTCTCCAGCGCTAAGGTCATTGTTACGCAAGCCTTACGAACGGTGACCGGCTGTTGACACGACCGTCACCCTCAAATTATAGGCGCACACTAACACCGGCCAGGTTAGTAAAGGGGTAGCTTATCATGAATTACGCTGCTGATCTTACAATAAGACTGGTTTTATAGCCTCCAGAGCCTGACTGGCACTAAGCGGAGCTGCCCTCTCGTCAACTGGTACCTACATAAACCATGCAACCCTACGGGGTGAATGTGACTAATAAATGCTTCTTACGTCGAAGTTTTGGCAGATCCACGGAGTTTTTTATTAAAGTAATTTTCGCTGTCATGTACCTACGAACTTAATATCGGAGGAGAATTCGAACCGCTTTGCGTAACCTTGTATACGGGACGACTATTGTCATTGCTCTCAAATGGTGACGGGTCGAAGAATCAGTGCCTGCCGACTCATTGGGGTCGTGCTTTTAATCTCAAGCACCACACGCTCGAACATGTACCCTGTGGGAGGCGAAATTGTGTTAATGGGGGCGTATGAATATATCTACTTAGCTGAGGTACGATCGCAAGAGTCGTCCAAGTAATAGGGCCTAGTCCAAGGTTGAAATCCCAGGGGGACTTACTTAGCCGTCTTGGCCCGGTCGCGCGGACCTAAATATGCTCGATGCAAGAAACTCGGAAGTTATCACAAAAACAATGTTTTGGAGAGCATAATGCCGTGTTGCGCGTGGTTGCAACGATCAAAGAGATTTAGGAATAGCGTTTTAAAGTATGAC";
     string h2 = "GGTGAGGCTTGCGATATAAATTTTAAGGCGTAGAGAGGCCCGCACTCATTAGGTTCTTTAGCCTGCCCCCTCAGGCCACCCTTATTAGGAGGGTGGTGAAATACGGAAATGATACAATGTGTCCTAAGACATAACCAAGACATGTAGGTCCTTGAGATTCAAATCCGATCGCGGGACGACTATCATCAGGTAGAGCCCACAGAGTCGTCGGAAGCTGGTGAGTGCAAGGTGAAAGTGGTTCGACAGTTGTCGGTTTATTAGGCTGGGATAAACTTGCCACGATGATTAGTCAATGCTCACGGTCTCCAGTAGAGTTTTTGCTGTTGCTAATATATTCATAGTGAGAAGCCCTATGAACATGTGTGACTGTGTCGAGCCAATGTGACAGAATGAGTGAGAATAGGTACACATCCGTTCCCAAATATTTCACCTTAACCTACGTAAAATCTAGACTCTCAGGTGGCGACTTGAGATGTTACCTATGCTTTCGTTTCTCGACAACGGGCGTGGGACCAAATATAAACTGGGTCGTACATAATTTCAACACTACCGAGATTGTTGTATATCATAGCCGAGCAATCCATTGTCGACTAACAGCGAGGTAATTCTGAGATCTCCGTCTATGAATTGATTTGGAAACATCTTGGGTAATAAGAACCCATAAGACTTCTCAGCCTGGTCAAGATAGCAATGGTTCAAAGCGACCCACTCAGATACGATTGATGATAATGCACGCCCATTGCATAGGGCACATGGCTCTATCTTCTTCTCGCATGCAGCCACAAGAAATTTATCATATTTTGTTATGGCATGGTATGAGACTATCGGGTGGGCTGGGAATGACACGATCTTTATCCCTCCTGCCGGTTCTTGACACCTATTCCGGAGGCCATCTAATCCAGTCACCGGGGGAGGGCCTTAGCCCTCGCTGGGCCATTGGTTCGGCTCATATAAAGCATCGTTGGTCGCAACGGACGGGACGCGCTGGACGCATAACTGT";
-    int filas = 5;
-    int columnas = 8;
+    int filas = 1000;
+    int columnas = 800;
 
     int columnasPorProceso = columnas/NW_LIMIT;
     int Match;
@@ -72,55 +72,205 @@ if (rank == 0) {
   //imprimirMatriz();
   dest = 1;
   source = 7;
+
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
-  rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+
 
   } 
 
 else if ( rank == 1){
   dest = 2;
   source = 0;
-  rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
-  imprimirMatriz();
-  rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
+  rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat); 
+    for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
   //imprimirMatriz();
+  rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   }
 
   else if ( rank == 2){
   dest = 3;
   source = 1;
   rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   }
   else if ( rank == 3){
   dest = 4;
   source = 2;
   rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   }
     else if ( rank == 4){
   dest = 5;
   source = 3;
   rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   }
     else if ( rank == 5){
   dest = 6;
   source = 4;
   rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   }
     else if ( rank == 6){
   dest = 7;
   source = 5;
   rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
   }
     else if ( rank == 7){
   dest = 0;
   source = 6;
   rc = MPI_Recv(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
-  rc = MPI_Send(&(A[0][0]), ((filas + 1) * (columnas + 1)), MPI_INT, dest, tag, MPI_COMM_WORLD);
+  for (int i = 1; i <= filas; i++){
+    int columnaInicio = (columnasPorProceso*rank) + 1;
+    for (int j = columnaInicio; j < (columnaInicio + columnasPorProceso); j++){
+      if (h1[i-1] != h2[j-1]){
+        bandera = 1;
+      }
+      else { bandera = 0; }
+      Match = A[i-1][j-1] + bandera;
+      //cout << "M: " << Match << endl;
+      Delete = A[i - 1][j] + 1;
+      //cout << "D " <<Delete << endl;
+      Insert = A[i][j-1] + 1;
+      //cout << "I " << Insert << endl;
+      A[i][j] = min(min(Match, Insert), Delete);
+
+
+    }
+  }
+  //imprimirMatriz();
   }
 
 rc = MPI_Get_count(&Stat, MPI_INT, &count);
